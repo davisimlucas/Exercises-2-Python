@@ -18,7 +18,7 @@ def passwordGenerator():
         ]
     # upper() => letras maiúsculas das strings
     alfabeto_M = [letra.upper() for letra in alfabeto_m]
-    numbers = [num for num in range(0, 9)]
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     caracteres = ['!','@', '$', '%', '&', '*', '+', '_']
 
     while True:
@@ -40,6 +40,8 @@ def passwordGenerator():
                 password.append(valorStrong)
             password[0] = random.choice(alfabeto_M) + password[0]   # colocar como soma pois o elemento [0] é vazio, não podendo adicionar por index
             password[-1] = password[-1] + random.choice(caracteres) # colocar como soma pois o elemento [-1] é vazio, não podendo adicionar por index
+            password[-2] = password[-2] + random.choice(numbers)
+            password[-3] = password[-3] + random.choice(numbers)
         else:
             print('Digite para essa questão "fraco" ou "forte".') # caso não seja digitada a resposta requerida, volte no início do laço while
             continue
@@ -53,3 +55,4 @@ def passwordGenerator():
         else: # caso não, o break fará sair do laço while
             print(f'Sua senha continua sendo {"".join(map(str, password))}\n')    
             break
+passwordGenerator()
