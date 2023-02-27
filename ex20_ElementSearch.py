@@ -36,3 +36,4 @@ numberProvided = int(input('Enter a number: '))
 # chamar a função declarando os devidos parâmetros 
 result = elementSearch(list_, numberProvided)
 print(f'{list_}\n{result}')
+
