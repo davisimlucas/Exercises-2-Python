@@ -14,7 +14,7 @@ main method
 import random 
 
 def CowsAndBulls():
-    # declarar a variável de tentativas igual a zero no início.
+
     attempts = 0
     while True:
         # entrada do seu número
@@ -22,7 +22,6 @@ def CowsAndBulls():
         # caso o usuário deseja sair, somente escrver "quit"
         if numberChoice == 'quit':
             print('Goodbye!')
-            # assim, o laço while será interrompido
             break
 
         # list comprehensions para gerar uma lista com cada elemento do número digitado pelo usuário
@@ -31,17 +30,14 @@ def CowsAndBulls():
         # list comprehensions para gerar lista de números aleatórios (import random)
         numberRandomList = [random.randint(0, 9) for _ in range(4)]
 
-        # declaração das variáveis "cows" e "bulls" como zero inicialmente
         cows = 0
         bulls = 0
         # looping for para um número variável (index) percorrer o tamanho (len()) da lista de Random 
         for index in range(len(numberRandomList)):
             # estrutura if para verificar se o número digitato numa posição é o mesmo número gerado no random na mesma posição
             if numberChoiceList[index] == numberRandomList[index]:
-                # se sim, conta 1 em "cows"
                 cows += 1
             elif numberChoiceList[index] in numberRandomList:
-                # se não, conta 1 em "bulls"
                 bulls += 1
 
         # para cada tentativa, aumenta a contagem de "attemps"
@@ -63,7 +59,6 @@ def CowsAndBulls():
         elif question == 'n':
             break 
 
-# define uma função main que chama a função "CowsAndBulls()" seja usada somente quando  programa for o principal
 def main():
     CowsAndBulls()
 
