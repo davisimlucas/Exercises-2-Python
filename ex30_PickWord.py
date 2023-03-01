@@ -21,7 +21,7 @@ def pickWord():
             words.append(line)
 
     # número que vai representar o index da list words sendo sorteado entre 0 e o tamanho (len()) da list 
-    randomWord = random.randint(0, len(words)-1)
+    randomWord = random.randint(0, len(words))
     pickedWord = words[randomWord]
     
     return pickedWord
