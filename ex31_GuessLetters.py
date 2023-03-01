@@ -8,31 +8,50 @@ clue word that were guessed correctly.
 For now, let the player guess an infinite number of times until they get the entire word. As a bonus, keep track of the letters the player guessed and display a different message if the player tries to guess that letter again. Remember to stop the game when all the letters have been guessed correctly! Don’t worry about choosing a word randomly or keeping track of the number of guesses the player has remaining - 
 we will deal with those in a future exercise.
 '''
-
 from ex30_PickWord import pickWord
- 
-word = pickWord()
-def hangman(variable):
-    wordList = list(variable)
+
+def hangman():
+    word = pickWord()
+    wordList = list(word)
     attempts = 0
     spaceWord = ['_' for i in range(len(wordList))]
-    # for looping que itera index e acompanha cada elemento da lista da palavra com a função enumerate()
-    for index, letter in enumerate(wordList): 
-        while spaceWord.count("_") != 0:
-            letterInput = str(input('Enter a letter: ')).upper()
+    # for looping que itera index e acompanha cada elemento da lista da palavra com a função enumerate() 
+    while spaceWord.count("_") != 0 and 0 <= attempts <= 10:
+        letterInput = str(input('Enter a letter: ')).upper()
+        
+        if letterInput in wordList:
+            # se constar: fazer iterar cada posição (i) acompanhado a letra (l) com a função enumerate() na lista da palavra 
+            for i, l in enumerate(wordList):
+                if l == letterInput:
+                    # se for: o elemento naquela posição(i) deixa de ser "_" e se recebe agora letra inserida 
+                    spaceWord[i] = letterInput
+            print(f'You pick a right letter!\n\
+    {"".join(map(str, spaceWord))}')
 
-            if letterInput in wordList:
-                # se constar: fazer iterar cada posição (i) acompanhado a letra (l) com a função enumerate() na lista da palavra 
-                for i, l in enumerate(wordList):
-                    if l == letterInput:
-                        # se for: o elemento naquela posição(i) deixa de ser "_" e se recebe agora letra inserida 
-                        spaceWord[i] = letterInput
-                print(f'You pick a right letter!\n\
-                    {"".join(map(str, spaceWord))}')
-
-            elif letterInput not in wordList:
-                print('Incorrect! Try again.\n') 
+        elif letterInput not in wordList:
+            if attempts < 10:
+                print('Incorrect! Try again.\n')
+            elif attempts >= 10:
+                print('Your last letter picked was wrong!') 
             attempts += 1
-            
-    print(f'You got the word right! With {attempts} attempts\n')
-              
+                
+        if attempts < 10 and wordList != spaceWord:
+            print(f'You have {10 - attempts} incorrect guesses left.\n')
+        elif wordList == spaceWord:
+            continue
+        elif attempts == 10:
+            print('Your last chance: ')
+            lastChance = str(input('Enter a word: ')).upper()
+            if lastChance == word:
+                wordList = spaceWord
+                print('You`re right!')
+                break
+        
+    if wordList == spaceWord:
+        print('Congratulations, you won!')
+    elif wordList != spaceWord:
+        print('You unfortunately lost!')
+     
+hangman()
+
+
