@@ -11,47 +11,45 @@ we will deal with those in a future exercise.
 from ex30_PickWord import pickWord
 
 def hangman():
+
     word = pickWord()
     wordList = list(word)
     attempts = 0
     spaceWord = ['_' for i in range(len(wordList))]
-    # for looping que itera index e acompanha cada elemento da lista da palavra com a função enumerate() 
-    while spaceWord.count("_") != 0 and 0 <= attempts <= 10:
-        letterInput = str(input('Enter a letter: ')).upper()
-        
-        if letterInput in wordList:
-            # se constar: fazer iterar cada posição (i) acompanhado a letra (l) com a função enumerate() na lista da palavra 
-            for i, l in enumerate(wordList):
-                if l == letterInput:
-                    # se for: o elemento naquela posição(i) deixa de ser "_" e se recebe agora letra inserida 
-                    spaceWord[i] = letterInput
-            print(f'You pick a right letter!\n\
-    {"".join(map(str, spaceWord))}')
 
-        elif letterInput not in wordList:
-            if attempts < 10:
-                print('Incorrect! Try again.\n')
-            elif attempts >= 10:
-                print('Your last letter picked was wrong!') 
-            attempts += 1
-                
-        if attempts < 10 and wordList != spaceWord:
-            print(f'You have {10 - attempts} incorrect guesses left.\n')
-        elif wordList == spaceWord:
-            continue
-        elif attempts == 10:
-            print('Your last chance: ')
-            lastChance = str(input('Enter a word: ')).upper()
-            if lastChance == word:
-                wordList = spaceWord
-                print('You`re right!')
-                break
-        
-    if wordList == spaceWord:
-        print('Congratulations, you won!')
-    elif wordList != spaceWord:
-        print('You unfortunately lost!')
-     
-hangman()
+    def playGame():
+        # nolocal: reconhecer variáveis externas
+        nonlocal wordList, attempts, spaceWord
 
+        while spaceWord.count('_') != 0 and attempts <= 10:
+            if letterInput in wordList:
+                # se constar: fazer iterar cada posição (i) acompanhado a letra (l) com a função enumerate() na lista da palavra 
+                for index, letter in enumerate(wordList):
+                    if l == letterInput:
+                        # se for: o elemento naquela posição(i) deixa de ser "_" e se recebe agora letra inserida 
+                        spaceWord[index] = letterInput
+                print(f'You pick a right letter!\n{"".join(map(str, spaceWord))}')
+
+            elif letterInput not in wordList:
+                if attempts < 10:
+                    print('Incorrect! Try again.\n')
+                elif attempts >= 10:
+                    print('Your last letter picked was wrong!') 
+                attempts += 1
+                    
+            if attempts < 10 and wordList != spaceWord:
+                print(f'You have {10 - attempts} incorrect guesses left.\n')
+            elif wordList == spaceWord:
+                pass
+            elif attempts == 10:
+                print('Your last chance: ')
+                lastChance = str(input('Enter a word: ')).upper()
+                if lastChance == word:
+                    wordList = spaceWord
+                    print('You`re right!')
+        
+        if wordList == spaceWord:
+            print('Congratulations, you won!')
+        elif wordList != spaceWord:
+            print('You unfortunately lost!')
 
